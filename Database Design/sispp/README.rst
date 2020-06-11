@@ -1,6 +1,9 @@
 **Contributors:**
-- Berkay Olgun
+
+- Berkay Olgun 
+
 - Uğur Ali Kaplan
+
 - Mehmet Altuner
 
 This repository contains a template project for the Database Systems course
