@@ -1,0 +1,54 @@
+{% extends "layout.html" %}
+{% block title %}Classroom Update{% endblock %}
+{% block content %}
+
+<div class="col-sm">
+    <form method="post" action="/classroom_update" id="classroom_update">	
+        <div class="form-group">
+            <input type="hidden" class="form-control" name="id" type="text" value="{{classroom.id}}">
+        </div>
+        <div class="form-group">
+            <a>Name: </a><input class="form-control" name="name" type="text" value="{{classroom.name}}">
+        </div>
+        <div class="form-group">
+            <a>Capacity: </a><input class="form-control" name="capacity" type="text" value="{{classroom.cap}}">
+        </div>
+        <div class="form-group">
+            <a>Last Restoration Date: </a>
+                <select name="restoration_date">
+                    <option>{{ classroom.restoration_date }}</option>
+                {% for year in range (datetime.year, 1773, -1) %}
+                    <option>{{ year }}</option>
+                {% endfor %}
+                </select> <br/>
+        </div>
+        <div class="form-group">	
+            <a>Air Conditioner: </a><input class="form-control" name="conditioner" value = "TRUE" type="checkbox"{% if classroom.conditioner %}checked{% else %}{% endif %}> <br/>
+                                    <input class="form-control" name="conditioner" value = "FALSE" type="hidden">		
+        </div>
+        <div class="form-group">
+            <a>Classroom Type:</a><br/>
+            <a>Lecture:</a>
+            <input type="radio" class="form-control" name="type" value="Lecture" {% if classroom.type == "Lecture" %}checked{% else %}{% endif %}>
+            <a>Auditoria:</a>
+            <input type="radio" class="form-control" name="type" value="Auditoria"{% if classroom.type == "Auditoria" %}checked{% else %}{% endif %}>
+            <a>Seminar:</a> 
+            <input type="radio" class="form-control" name="type" value="Seminar"{% if classroom.type == "Seminar" %}checked{% else %}{% endif %}>
+            <a>Interactive:</a>
+            <input type="radio" class="form-control" name="type" value="Interactive"{% if classroom.type == "Interactive" %}checked{% else %}{% endif %}>
+        </div>
+        <div class="form-group">
+            <a>Board Type:</a><br/>
+            <a>Mixed:</a>
+            <input type="radio" class="form-control" name="board_type" value="Mixed" {% if classroom.board_type == "Mixed" %}checked{% else %}{% endif %}>
+            <a>Black:</a>
+            <input type="radio" class="form-control" name="board_type" value="Black"{% if classroom.board_type == "Black" %}checked{% else %}{% endif %}>
+            <a>White:</a>
+            <input type="radio" class="form-control" name="board_type" value="White"{% if classroom.board_type == "White" %}checked{% else %}{% endif %}>
+        </div>
+        <div class="form-group">
+            <button type="Update" class="btn btn-primary" name="classroom">Update</button>
+        </div>
+    </form>
+</div>
+{% endblock %}

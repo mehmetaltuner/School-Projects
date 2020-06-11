@@ -1,0 +1,54 @@
+{% extends "layout.html" %}
+{% block title %}Papers{% endblock %}
+{% block content %}
+    <br/>
+    <form action="papers" method="post">
+        <div class="form-group">
+            <select class="custom-select" name="a_id">
+                <option selected>Pick an author</option>
+                {% if authors %}
+                    {% for author in authors %}
+                    <option value={{ author["ID"] }}>{{ author["Name"] }}</option>
+                    {% endfor %}
+                {% endif %}
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary">Find Papers by Author</button>
+    </form><br/>
+    {% if papers %}
+        <form action="/paper_edit" method="post">
+            <table class="table">
+            <thead>
+               <tr>
+                   <th>Select</th>
+                   <th>Title</th>
+                   <th>Platform</th>
+                   <th>Conference</th>
+                   <th>Citation</th>
+                   <th>Authors</th>
+               </tr>
+            </thead>
+            <tbody>
+            {% for paper in papers %}
+                <tr>
+                    <td>
+                        <label class="checkbox">
+                            <input type="checkbox" name="paper_id" value="{{ paper["ID"] }}"/>
+                        </label>
+                    </td>
+                    <td>
+                    {{ paper["Title"] }}
+                    </td>
+                    <td> {{ paper["Platform"] }}</td>
+                    <td> {% if paper["Conference"] %} Yes {% else %} No {% endif %}</td>
+                    <td> {{ paper["Citation"] }} </td>
+                    <td>{% for a in paper["Authors"] %} {{ a }} <br/> {% endfor %}</td>
+                </tr>
+            {% endfor %}
+           </tbody>
+        </table>
+            <button type="submit" class="btn btn-primary" value="update" name="button">Update</button>
+            <button type="submit" class="btn btn-primary" value="delete" name="button">Delete</button>
+        </form>
+    {%  endif %}
+{% endblock %}

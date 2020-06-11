@@ -1,0 +1,40 @@
+{% extends "layout.html" %}
+{% block title %}Assistants{% endblock %}
+{% block content %}
+    <br/>
+	<div class="container">
+        <h1 class="title">Assistants</h1>
+		<div class="row">
+			<div class="col-md-12">
+                <form action="/assistant_edit" method="post">
+				    <table class="table">
+					<thead>
+						<tr>
+							<th scope="col">Select</th>
+						    <th scope="col">Name</th>
+						    <th scope="col">Degree</th>
+						</tr>
+					</thead>
+					<tbody>
+						{% if assistants %}
+							{% for assistant in assistants %}
+								<tr>
+					  				<td scope="row">
+                                        <label class="checkbox">
+                                            <input type="checkbox" name="as_id" value="{{ assistant["ID"] }}"/>
+                                        </label>
+                                    </td>
+					  				<td scope="row">{{ assistant["Name"] }}</td>
+					  				<td scope="row">{{ assistant["Degree"] }}</td>
+					  			</tr>
+					  		{% endfor %}
+					  	{% endif %}
+				  	</tbody>
+				</table>
+                    <button type="submit" class="btn btn-primary" value="update" name="button">Update</button>
+                    <button type="submit" class="btn btn-primary" value="delete" name="button">Delete</button>
+                </form>
+			</div>
+		</div>
+	</div>
+{% endblock %}

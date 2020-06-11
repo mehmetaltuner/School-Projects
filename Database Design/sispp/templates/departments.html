@@ -1,0 +1,44 @@
+{% extends "layout.html" %}
+{% block title %}Departments{% endblock %}
+{% block content %}
+    <br/>
+	<div class="container">
+        <h1 class="title">Departments</h1>
+		<div class="row">
+			<div class="col-md-12">
+                <form action="/department_edit" method="post">
+				    <table class="table">
+					    <thead>
+						<tr>
+							<th scope="col">Select</th>
+						    <th scope="col">Name</th>
+						    <th scope="col">Faculty</th>
+                            <th scope="col">Building</th>
+                            <th scope="col">Department Chair</th>
+						</tr>
+					</thead>
+					    <tbody>
+						{% if departments %}
+							{% for department in departments %}
+								<tr>
+					  				<td scope="row">
+                                        <label class="checkbox">
+                                            <input type="checkbox" name="dep_id" value="{{ department["ID"] }}"/>
+                                        </label>
+                                    </td>
+					  				<td scope="row">{{ department["Name"] }}</td>
+					  				<td scope="row">{{ department["Faculty"] }}</td>
+                                    <td scope="row">{{ department["Building"] }}</td>
+                                    <td scope="row">{{ department["Chair"] }}</td>
+					  			</tr>
+					  		{% endfor %}
+					  	{% endif %}
+				  	</tbody>
+				    </table>
+                    <button type="submit" class="btn btn-primary" value="update" name="button">Update</button>
+                    <button type="submit" class="btn btn-primary" value="delete" name="button">Delete</button>
+                </form>
+            </div>
+		</div>
+	</div>
+{% endblock %}

@@ -1,0 +1,39 @@
+{% extends "layout.html" %}
+{% block title %}Schedule{% endblock %}
+{% block content %}
+
+	<div class="container">
+		<div class="row">
+			<h1>Schedule</h1>
+			<table class="table">
+				<thead>
+					<tr>
+						<th scope="col">CRN</th>
+					    <th scope="col">Credits</th>
+					    <th scope="col">Code</th>
+					    <th scope="col">Date</th>
+					    <th scope="col">Instructor</th>
+					    <th scope="col">Building</th>
+					    <th scope="col">Room</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% if enrollments %}
+						{% for enr in enrollments %}
+							<tr>
+				  				<th scope="row">{{enr[0]}}</th>
+				  				<th scope="row">{{enr[1]}}</th>
+				  				<th scope="row">{{enr[2]}}</th>
+				  				<th scope="row">{{enr[3]}}</th>
+				  				<th scope="row">{{enr[4]}} - {{enr[5]}} </th>
+				  				<th scope="row">{{enr[6]}}</th>
+				  				<th scope="row">{{enr[7]}}</th>
+				  			</tr>
+				  		{% endfor %}
+				  	{% endif %}
+			  	</tbody>
+			</table>
+		</div>
+	</div>
+
+{% endblock %}

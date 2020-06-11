@@ -1,0 +1,25 @@
+{% extends "layout.html" %}
+{% block title %}Home{% endblock %}
+{% block content %}
+
+<head>
+  <link rel="stylesheet" href="{{ url_for('static', filename='custom.css') }}">
+</head>
+	<div class="container">
+	  <div class="row">
+	    <div class="col-sm">
+	    	<a>Hello, {{ person.name }} | {{ person.type }}</a> <br/>
+	    	{% if person.photo %}
+	    		<img class="img-fluid" src="{{url_for('static', filename='img/' + person.photo)}}" align="middle" />  
+	    	{% else %}
+	    		<img class="img-thumbnail" src="{{url_for('static', filename='img/defaultpfp.jpg')}}" align="middle" />
+	    	{% endif %}
+	    </div>
+	    <div class="col-sm">
+	    	<br/>
+	      <a type="button" href="/schedule" class="btn btn-primary">Your schedule</a> <br/><br/>
+	      <a type="button" href="/enroll" class="btn btn-primary">Enroll to a class </a>
+	    </div>
+	  </div>
+	</div>
+{% endblock %}

@@ -1,0 +1,560 @@
+{% extends "layout.html" %}
+{% block title %}Super User{% endblock %}
+{% block content %}
+	
+<div class="container">
+    <br/>
+	<div class="row">
+		<div class="col-sm">
+		    <button id="student_create_dd" class="btn btn-primary" onclick="dropdown($('#student_create'))">Student Creation Form</button>
+		    <form method="post" action="/student_create" id="student_create" enctype="multipart/form-data" style="visibility: hidden"> 
+		    	<!-- USER CREATION FORM -->
+		    	<div class="form-group">
+		    		<label for="name">Name</label>
+		    		<input class="form-control" name="name" type="text">
+		    	</div>
+		    	<div class="form-group">
+		    		<label for="number">Number</label>
+		    		<input class="form-control" name="number" type="text">
+		    	</div>
+		    	<div class="form-group">
+		    		<label for="mail">Mail</label>
+		    		<input class="form-control" name="mail" type="text">
+		    	</div>
+		    	<div class="form-group">
+		    		<label for="pic">Picture</label>
+		    		<input type="file" name="pic">
+		    	</div>
+		    	<div class="form-group">
+		    		<label for="password">Password</label>
+		    		<input class="form-control" name="password" type="password">
+		    	</div>
+		    	<div class="form-group">
+		    		<label for="number">Earned Credits</label>
+		    		<input class="form-control" name="cred" type="text">
+		    	</div>
+		    	<div class="form-group">
+		    		<a>Faculty: </a>
+		    		<select class="form-control" name="facu">
+		    			{% for facu in faculties %}
+					  		<option value={{facu[0]}}>{{facu[1]}}</option>
+					  	{% endfor %}
+					</select>
+		    	</div>
+		    	<div class="form-group">
+		    		<a>Departmant: </a>
+		    		<select class="form-control" name="depart">
+		    			{% for department in departments %}
+					  		<option value={{department.ID}}>{{department.Name}}</option>
+					  	{% endfor %}
+					</select>
+		    	</div>
+		    	<div class="form-group">
+		    		<a>Club (if any): </a>
+		    		<select class="form-control" name="club">
+		    			<option value="">None </option>
+		    			{% for club in clubs %}
+					  		<option value={{club["ID"]}}>{{club["Name"]}}</option>
+					  	{% endfor %}
+					</select>
+		    	</div>
+		    	<div class="form-group">
+		    		<a>Lab (if any): </a>
+		    		<select class="form-control" name="lab">
+		    			<option value="">None </option>
+		    			{% for lab in labs %}
+					  		<option value={{lab["ID"]}}>{{lab["Name"]}}</option>
+					  	{% endfor %}
+					</select>
+		    	</div>
+		    	<div class="form-group">
+		    		<button type="submit" class="btn btn-primary">Submit</button>
+		    	</div>
+			</form>
+		</div>
+		<div class="col-sm">
+		    <button id="instructor_create_dd" class="btn btn-primary" onclick="dropdown($('#instructor_create'))">Instructor Creation Form</button>
+		    <form method="post" action="/instructor_create" id="instructor_create" style="visibility: hidden"> <!-- INSTRUCTOR CREATION FORM -->
+				<div class="form-group">
+		    		<a>Name: </a><input class="form-control" name="name" type="text"> <br/>
+				</div>
+				<div class="form-group">
+					<a>Mail : </a><input class="form-control" name="mail" type="text"> <br/>
+				</div>
+				<div class="form-group">
+					<label for="number">Password</label>
+					<input class="form-control" name="password" type="password">
+				</div>
+				<div class="form-group">
+		    		<a>Bachelor: </a><input class="form-control" name="bachelors" type="text"> <br/>
+				</div>
+				<div class="form-group">
+		    		<a>Master: </a><input class="form-control" name="masters" type="text"> <br/>
+				</div>
+				<div class="form-group">
+		    		<a>Doctorate: </a><input class="form-control" name="doctorates" type="text"> <br/>
+				</div>
+				<div class="form-group">
+		    		<label for="department">Department</label>
+                    <select class="form-control" name="department">
+                    {% for dep in departments %}
+                        <option value="{{ dep["ID"] }}">{{ dep["Name"] }}</option>
+                    {% endfor %}
+                    </select>
+		    	</div>
+				<div class="form-group">
+		    		<label for="room">Room</label>
+                    <select class="form-control" name="room">
+                    {% if rooms %}
+	                    {% for room in rooms %}
+	                        <option value="{{ room["ID"] }}">{{ room["Name"] }}</option>
+	                    {% endfor %}
+                    {% endif %}
+                    </select>
+				</div>
+				<div class="form-group">
+		    		<a>Lab (if any): </a>
+		    		<select class="form-control" name="lab">
+						<option value="">-</option>
+		    			{% for lab in labs %}
+					  		<option value={{lab["ID"]}}>{{lab["Name"]}}</option>
+					  	{% endfor %}
+					</select>
+		    	</div>
+				<div class="form-group">
+					<button type="submit" class="btn btn-primary" name="instructor">Submit</button>
+				</div>
+			</form>
+		</div>
+		<div class="col-sm">
+			<button id="room_create_dd" class="btn btn-primary" onclick="dropdown($('#room_create'))">Room Creation Form</button>
+			<form method="post" action="/room_create" id="room_create" style="visibility:hidden"> <!-- ROOM CREATION FORM -->
+				<div class="form-group">
+					<a>Name: </a><input class="form-control" name="name" type="text">
+				</div>
+				<div class="form-group">
+		    		<label for="building">Building</label>
+                    <select class="form-control" name="building">
+                    {% for building in buildings %}
+                        <option value="{{ building["ID"] }}">{{ building["Name"] }}</option>
+                    {% endfor %}
+                    </select>
+		    	</div>
+				<div class="form-group">
+					<input type="radio" class="form-control" name="type" value="class" checked> Classroom <br/>
+					<input type="radio" class="form-control" name="type" value="lab"> Laboratory <br/>
+					<input type="radio" class="form-control" name="type" value="room"> Room <br/>
+				</div>
+				<div class="form-group">
+						<input type="radio" class="form-control" name="availability" value="TRUE" checked> Available <br/>
+						<input type="radio" class="form-control" name="availability" value="FALSE"> Not Available <br/>
+				</div>
+				<div class="form-group">
+					<button type="submit" class="btn btn-primary" name="room">Save</button>
+				</div>
+			</form>
+		</div>
+		<div class="col-sm">
+		    <button id="classroom_create_dd" class="btn btn-primary" onclick="dropdown($('#classroom_create'))">Classroom Creation Form</button>
+			<form method="post" action="/classroom_create" id="classroom_create" style="visibility: hidden"> <!-- CLASSROOM CREATION FORM -->	
+				<div class="form-group">
+					<a>Name: </a><input class="form-control" name="name" type="text">
+				</div>
+				<div class="form-group">
+		    		<label for="building">Building</label>
+                    <select class="form-control" name="building">
+                    {% for building in buildings %}
+                        <option value="{{ building["ID"] }}">{{ building["Name"] }}</option>
+                    {% endfor %}
+                    </select>
+		    	</div>
+				<div class="form-group">
+					<a>Capacity: </a><input class="form-control" name="capacity" type="text">
+				</div>
+				<div class="form-group">
+					<a>Last Restoration Date: </a>
+						<select name="restoration_date">
+						{% for year in range (datetime.year, 1773, -1) %}
+							<option>{{ year }}</option>
+						{% endfor %}
+						</select> <br/>
+				</div>
+				<div class="form-group">	
+					<a>Available: </a><input class="form-control" name="availability" value = "TRUE" type="checkbox" checked> <br/>
+									  <input class="form-control" name="availability" value = "FALSE" type="hidden">	
+				</div>
+				<div class="form-group">	
+					<a>Air Conditioner: </a><input class="form-control" name="conditioner" value = "TRUE" type="checkbox"> <br/>
+											<input class="form-control" name="conditioner" value = "FALSE" type="hidden" checked>		
+				</div>
+				<div class="form-group">
+					<a>Classroom Type:</a><br/>
+					<a>Lecture:</a>
+					<input type="radio" class="form-control" name="type" value="Lecture" checked>
+					<a>Auditoria:</a>
+					<input type="radio" class="form-control" name="type" value="Auditoria">
+					<a>Seminar:</a> 
+					<input type="radio" class="form-control" name="type" value="Seminar">
+					<a>Interactive:</a>
+					<input type="radio" class="form-control" name="type" value="Interactive">
+				</div>
+				<div class="form-group">
+					<a>Board Type:</a><br/>
+					<a>Mixed:</a>
+					<input type="radio" class="form-control" name="board_type" value="Mixed" checked>
+					<a>Black:</a>
+					<input type="radio" class="form-control" name="board_type" value="Black">
+					<a>White:</a>
+					<input type="radio" class="form-control" name="board_type" value="White">
+				</div>
+				<div class="form-group">
+					<button type="submit" class="btn btn-primary" name="classroom">Submit</button>
+				</div>
+			</form>
+		</div>
+	</div>
+    <div class="row">
+        <div class="col-sm">
+            <button id="club_create_dd" class="btn btn-primary" onclick="dropdown($('#club_create'))">Club Creation Form</button>
+            <form method="post" action="/club_create" id="club_create" style="visibility: collapse">
+        <div class="form-group">
+            <label for="name">Name</label>
+            <input class="form-control" name="name" type="text"/>
+        </div>
+        <div class="form-group">
+            <label for="fac_id">Faculty</label>
+            <select class="custom-select" name="fac_id">
+                {% for faculty in faculties %}
+                    <option value="{{ faculty[0] }}">{{ faculty[1] }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="adv_id">Advisor</label>
+            <select class="custom-select" name="adv_id">
+                {% for person in people %}
+                    <option value="{{ person[0] }}">{{ person[1] }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="ch_id">Chairman</label>
+            <select class="custom-select" name="ch_id">
+                {% for person in people %}
+                    <option value="{{ person[0] }}">{{ person[1] }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="v1_id">Vice Chairman 1</label>
+            <select class="custom-select" name="v1_id">
+                {% for person in people %}
+                    <option value="{{ person[0] }}">{{ person[1] }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="v2_id">Vice Chairman 2</label>
+            <select class="custom-select" name="v2_id">
+                {% for person in people %}
+                    <option value="{{ person[0] }}">{{ person[1] }}</option>
+                {% endfor %}
+            </select>
+        </div>
+    <button type="submit" class="btn btn-primary">Create</button>
+    </form><br/>
+        </div>
+        <div class="col-sm">
+            <button id="lab_create_dd" class="btn btn-primary" onclick="dropdown($('#lab_create'))">Lab Creation Form</button>
+           <form method="post" action="/lab_create" id="lab_create" style="visibility: collapse">
+        <div class="form-group">
+            <label for="name">Name</label>
+            <input class="form-control" name="name" type="text"/>
+        </div>
+        <div class="form-group">
+        <label for="dep_id">Department</label>
+            <select class="custom-select" name="dep_id">
+                {% for dep in departments %}
+                    <option value="{{ dep["ID"] }}">{{ dep["Name"] }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="fac_id">Faculty</label>
+            <select class="custom-select" name="fac_id">
+                {% for faculty in faculties %}
+                    <option value="{{ faculty[0] }}">{{ faculty[1] }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="bu_id">Building</label>
+            <select class="custom-select" name="bu_id">
+                {% for building in buildings %}
+                    <option value="{{ building["ID"] }}">{{ building["Name"] }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="r_id">Room</label>
+            <select class="custom-select" name="r_id">
+                {% for room in rooms %}
+                    <option value="{{ room["ID"] }}">{{ room["Name"] }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="p_id">Principal Investigator</label>
+            <select class="custom-select" name="p_id">
+                {% for person in people %}
+                    <option value="{{ person[0] }}">{{ person[1] }}</option>
+                {% endfor %}
+            </select>
+        </div>
+    <button type="submit" class="btn btn-primary">Create</button>
+    </form><br/>
+        </div>
+         <div class="col-sm">
+            <button id="lab_create_dd" class="btn btn-primary" onclick="dropdown($('#lesson_create'))">Lesson Creation Form</button>
+            <form method="post" action="/lesson_create" id="lesson_create" style="visibility: collapse">
+            	<div id="lesson_create">
+                	<div class="form-group">
+                		<label for="crn" > CRN </label>
+                		<input class="form-control" type="text" name="crn">
+                	</div>
+                	<div class="form-group">
+                		<label for="date">Date </label>
+                		<input class="form-control" type="text" name="date">
+                	</div>
+                	<div class="form-group">
+                		<label for="code">Code </label>
+                		<input class="form-control" type="text" name="code">
+                	</div>
+                	<div class="form-group">
+                		<label for="code">Capacity </label>
+                		<input class="form-control" type="text" name="cap">
+                	</div>
+                	<div class="form-group">
+                		<label for="code">Instructor </label>
+                		<select name="instructor" class="form-control">
+                			{% for inst in instructors %}
+                				<option value={{inst.ID}} > {{inst.Name}} </option>
+                			{% endfor %}
+                		</select>
+                	</div>
+                	<div class="form-group">
+                		<label for="location">Location </label>
+                		<select name="location" class="form-control">
+                			{% for cla in classrooms %}
+                				<option value={{cla.ID}} > {{cla.Name}} {{cla["Building Name"]}} </option>
+                			{% endfor %}
+                		</select>
+                	</div>
+                	<div class="form-group">
+                		<label for="assistant">Assistant </label>
+                		<select name="assistant" class="form-control">
+                			{% for assi in assistants %}
+                				<option value={{assi["ID"]}} > {{assi["Name"]}} </option>
+                			{% endfor %}
+                		</select>
+                	</div>
+                	<div class="form-group">
+                		<label for="credit">Credit </label>
+                		<input class="form-control" type="text" name="credit">
+                	</div>
+		    		<div class="form-group">
+		    			<button type="submit" class="btn btn-primary">Submit</button>
+		    		</div>
+		    	</div>
+			</form>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm">
+            <button id="building_create_dd" class="btn btn-primary" onclick="dropdown($('#building_create'))">Building Creation Form</button>
+            <form method="post" action="/building_create" id="building_create" style="visibility: collapse">
+        <div class="form-group">
+            <label for="name">Name</label>
+            <input class="form-control" name="name" type="text"/>
+        </div>
+        <div class="form-group">
+            <label for="code">Code</label>
+            <input class="form-control" name="code" type="text"/>
+        </div>
+        <div class="form-group">
+            <label for="campus">Campus</label>
+            <input class="form-control" name="campus" type="text"/>
+        </div>
+    <button type="submit" class="btn btn-primary">Create</button>
+    </form><br/>
+        </div>
+        <div class="col-sm">
+            <button id="department_create_dd" class="btn btn-primary" onclick="dropdown($('#department_create'))">Department Creation Form</button>
+            <form method="post" action="/dep_create" id="department_create" style="visibility: collapse">
+        <div class="form-group">
+            <label for="name">Name</label>
+            <input class="form-control" name="name" type="text"/>
+        </div>
+        <div class="form-group">
+            <label for="fac_id">Faculty</label>
+            <select class="custom-select" name="fac_id">
+                {% for faculty in faculties %}
+                    <option value="{{ faculty[0] }}">{{ faculty[1] }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="bu_id">Building</label>
+            <select class="custom-select" name="bu_id">
+                {% for building in buildings %}
+                    <option value="{{ building["ID"] }}">{{ building["Name"] }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="ch_id">Chair</label>
+            <select class="custom-select" name="ch_id">
+                {% for person in people %}
+                    <option value="{{ person[0] }}">{{ person[1] }}</option>
+                {% endfor %}
+            </select>
+        </div>
+    <button type="submit" class="btn btn-primary">Create</button>
+    </form><br/>
+        </div>
+         <div class="col-sm">
+            <button id="fac_create_dd" class="btn btn-primary" onclick="dropdown($('#faculty_create'))">Faculty Creation Form</button>
+            <form method="post" action="/fac_create" id="faculty_create" style="visibility: collapse">
+        <div class="form-group">
+            <label for="name">Name</label>
+            <input class="form-control" name="name" type="text"/>
+        </div>
+        <div class="form-group">
+            <label for="b_id">Building</label>
+            <select class="custom-select" name="b_id">
+                {% for building in buildings %}
+                    <option value="{{ building["ID"] }}">{{ building["Name"] }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="dean_id">Dean</label>
+            <select class="custom-select" name="dean_id">
+                {% for person in people %}
+                    <option value="{{ person[0] }}">{{ person[1] }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="vdean1_id">Asst. Dean</label>
+            <select class="custom-select" name="vdean1_id">
+                {% for person in people %}
+                    <option value="{{ person[0] }}">{{ person[1] }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="vdean2_id">Asst. Dean</label>
+            <select class="custom-select" name="vdean2_id">
+                <option value="0">None</option>
+                {% for person in people %}
+                    <option value="{{ person[0] }}">{{ person[1] }}</option>
+                {% endfor %}
+            </select>
+        </div>
+    <button type="submit" class="btn btn-primary">Create</button>
+    </form><br/>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm">
+            <button id="paper_create_dd" class="btn btn-primary" onclick="dropdown($('#paper_create'))">Paper Creation Form</button>
+            <form method="post" action="/paper_create" id="paper_creae" style="visibility: collapse">
+        <div class="form-group">
+            <label for="name">Title</label>
+            <input class="form-control" name="name" type="text"/>
+        </div>
+        <div class="form-group">
+            <label for="pl">Platform</label>
+            <input class="form-control" name="pl" type="text"/>
+        </div>
+        <div class="form-group">
+            <label for="cc">Citation Count</label>
+            <input class="form-control" name="cc" type="text"/>
+        </div>
+        <div class="form-group">
+            <label for="a_id">Author</label>
+            <select class="custom-select" name="a_id">
+                {% for person in people %}
+                    <option value="{{ person[0] }}">{{ person[1] }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="conf">Conference</label>
+            <select class="custom-select" name="conf">
+                <option value="t">Yes</option>
+                <option value="f">No</option>
+            </select>
+        </div>
+    <button type="submit" class="btn btn-primary">Create</button>
+    </form><br/>
+        </div>
+        <div class="col-sm">
+            <button id="assistant_create_dd" class="btn btn-primary" onclick="dropdown($('#assistant_create'))">Assistant Creation Form</button>
+            <form method="post" action="/as_create" id="assistant_create" style="visibility: collapse">
+        <div class="form-group">
+            <label for="p_id">Name</label>
+            <select class="custom-select" name="p_id">
+                {% for person in people %}
+                    <option value="{{ person[0] }}">{{ person[1] }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="lab_id">Lab</label>
+            <select class="custom-select" name="lab_id">
+                {% for lab in labs2 %}
+                    <option value="{{ lab[0] }}">{{ lab[1] }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="deg">Degree</label>
+            <input class="form-control" name="deg" type="text"/>
+        </div>
+        <div class="form-group">
+            <label for="dep_id">Department</label>
+            <select class="custom-select" name="dep_id">
+                {% for dep in departments %}
+                    <option value="{{ dep["ID"] }}">{{ dep["Name"] }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="fac_id">Faculty</label>
+            <select class="custom-select" name="fac_id">
+                {% for fac in faculties %}
+                    <option value="{{ fac[0] }}">{{ fac[1] }}</option>
+                {% endfor %}
+            </select>
+        </div>
+    <button type="submit" class="btn btn-primary">Create</button>
+    </form><br/>
+        </div>
+    </div>
+</div>
+
+<script>
+	function dropdown($param){
+		if($param.css("visibility") == "hidden"){
+			$param.css("visibility", "visible");
+		}else{
+			$param.css("visibility", "hidden");
+		}
+	}
+
+
+</script>
+
+{% endblock %}

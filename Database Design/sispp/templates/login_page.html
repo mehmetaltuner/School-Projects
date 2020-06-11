@@ -1,0 +1,29 @@
+{% extends "layout.html" %}
+{% block title %}Login{% endblock %}
+{% block content %}
+
+	<div class="container">
+		<div class="row">		
+			<div class="col-md-4">
+			</div>	
+			<div class="col-md-4">
+				<form method="post" action="/login_action" id="student_create"> 
+			    	<!-- USER CREATION FORM -->
+			    	<div class="form-group">
+			    		<label for="mail">Mail</label>
+			    		<input class="form-control" name="mail" type="mail">
+			    	</div>
+			    	<div class="form-group">
+			    		<label for="number">Password</label>
+			    		<input class="form-control" name="password" type="password">
+			    	</div>
+			    	<div class="form-group">
+		    			<button type="submit" class="btn btn-primary">Login</button>
+		    		</div>
+			    	</div>
+				</form>
+			</div>
+		</div>
+	</div>
+
+{% endblock %}

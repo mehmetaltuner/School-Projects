@@ -1,0 +1,50 @@
+{% extends "layout.html" %}
+{% block title %}Edit Faculty - {{ faculty[1] }}{% endblock %}
+{% block content %}
+    <div class="col-sm">
+    <h1>Update Faculty - {{ faculty[1] }}</h1>
+    <form method="post" action="/fac_edit" id="faculty_update">
+        <div class="form-group">
+            <input type="hidden" class="form-control" name="id" type="text" value="{{ faculty[0] }}">
+        </div>
+        <div class="form-group">
+            <label for="name">Name</label>
+            <input class="form-control" name="name" type="text" value="{{ faculty[1] }}"/>
+        </div>
+        <div class="form-group">
+            <label for="b_id">Building</label>
+            <select class="custom-select" name="b_id">
+                {% for building in buildings %}
+                    <option value="{{ building["ID"] }}" {% if building["ID"] == faculty[2] %} selected {% endif %}>{{ building["Name"] }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="dean_id">Dean</label>
+            <select class="custom-select" name="dean_id">
+                {% for person in people %}
+                    <option value="{{ person[0] }}" {% if person[0] == faculty[3] %} selected {% endif %}>{{ person[1] }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="vdean1_id">Asst. Dean</label>
+            <select class="custom-select" name="vdean1_id">
+                {% for person in people %}
+                    <option value="{{ person[0] }}" {% if person[0] == faculty[4] %} selected {% endif %}>{{ person[1] }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="vdean2_id">Asst. Dean</label>
+            <select class="custom-select" name="vdean2_id">
+                <option value="0">None</option>
+                {% for person in people %}
+                    <option value="{{ person[0] }}" {% if person[0] == faculty[5] %} selected {% endif %}>{{ person[1] }}</option>
+                {% endfor %}
+            </select>
+        </div>
+    <button type="submit" class="btn btn-primary">Update</button>
+    </form><br/>
+</div>
+{% endblock %}

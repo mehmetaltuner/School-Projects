@@ -1,0 +1,16 @@
+*.pyc
+
+__pycache__
+
+.project
+.pydevproject
+.idea
+.code
+
+venv/
+docs/build/
+
+static/img/* 	
+secrets.py
+#!static/img/defaultpfp.jpeg
+

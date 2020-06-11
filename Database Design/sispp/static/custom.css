@@ -1,0 +1,19 @@
+footer {
+    text-align: center;
+}
+
+form {
+    height: auto;
+}
+
+form:hover {
+    height: auto;
+}
+
+body {
+    padding: 10px;
+}
+
+row {
+    padding: 10px;
+}

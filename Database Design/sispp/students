@@ -1,0 +1,30 @@
+                      Nesnelerin listesi
+  Şema  |          Adı           | Veri tipi |     Sahibi     
+--------+------------------------+-----------+----------------
+ public | assistants             | tablo     | iaksomyxyzootw
+ public | assistants_as_id_seq   | sequence  | iaksomyxyzootw
+ public | buildings              | tablo     | iaksomyxyzootw
+ public | buildings_bu_id_seq    | sequence  | iaksomyxyzootw
+ public | classes                | tablo     | iaksomyxyzootw
+ public | classes_cl_id_seq      | sequence  | iaksomyxyzootw
+ public | clubs                  | tablo     | iaksomyxyzootw
+ public | clubs_club_id_seq      | sequence  | iaksomyxyzootw
+ public | departments            | tablo     | iaksomyxyzootw
+ public | departments_dep_id_seq | sequence  | iaksomyxyzootw
+ public | faculties              | tablo     | iaksomyxyzootw
+ public | faculties_fac_id_seq   | sequence  | iaksomyxyzootw
+ public | instructors            | tablo     | iaksomyxyzootw
+ public | instructors_ins_id_seq | sequence  | iaksomyxyzootw
+ public | labs                   | tablo     | iaksomyxyzootw
+ public | labs_lab_id_seq        | sequence  | iaksomyxyzootw
+ public | lessons                | tablo     | iaksomyxyzootw
+ public | lessons_lesson_id_seq  | sequence  | iaksomyxyzootw
+ public | papers                 | tablo     | iaksomyxyzootw
+ public | papers_paper_id_seq    | sequence  | iaksomyxyzootw
+ public | people                 | tablo     | iaksomyxyzootw
+ public | people_p_id_seq        | sequence  | iaksomyxyzootw
+ public | rooms                  | tablo     | iaksomyxyzootw
+ public | rooms_room_id_seq      | sequence  | iaksomyxyzootw
+ public | students               | tablo     | iaksomyxyzootw
+(25 satır)
+

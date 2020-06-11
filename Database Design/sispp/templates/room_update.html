@@ -1,0 +1,36 @@
+{% extends "layout.html" %}
+{% block title %}Room Update{% endblock %}
+{% block content %}
+
+<div class="col-sm">
+    <form method="post" action="/room_update" id="room_update"> 
+        <div class="form-group">
+            <input type="hidden" class="form-control" name="id" type="text" value="{{room.id}}">
+        </div>
+        <div class="form-group">
+            <a>Name: </a><input class="form-control" name="name" type="text" value={{room.name}}>
+        </div>
+        <div class="form-group">
+            <label for="building">Building</label>
+            <select class="form-control" name="building">
+            <option value="room.building">{{room.building}}</option>
+            {% for building in buildings %}
+                <option value="{{ building["ID"] }}">{{ building["ID"],building["Name"] }}</option>
+            {% endfor %}
+            </select>
+        </div>
+        <div class="form-group">
+            <input type="radio" class="form-control" name="type" value="class" {% if room.class %}checked{% else %}{% endif %}> Classroom <br/>
+            <input type="radio" class="form-control" name="type" value="lab" {% if room.lab %}checked{% else %}{% endif %}> Laboratory <br/>
+            <input type="radio" class="form-control" name="type" value="room" {% if room.room %}checked{% else %}{% endif %}> Room <br/>
+        </div>
+        <div class="form-group">
+                <input type="radio" class="form-control" name="availability" value="TRUE" {% if room.availability %}checked{% else %}{% endif %}> Available <br/>
+                <input type="radio" class="form-control" name="availability" value="FALSE" {% if not room.availability %}checked{% else %}{% endif %}> Not Available <br/>
+        </div>
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary" name="room">Update</button>
+        </div>
+    </form>
+</div>
+{% endblock %}

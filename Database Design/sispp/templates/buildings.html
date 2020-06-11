@@ -1,0 +1,45 @@
+{% extends "layout.html" %}
+{% block title %}Buildings{% endblock %}
+{% block content %}
+<body>
+    <br/>
+	<div class="container">
+        <h1 class="title">Buildings</h1>
+		<div class="row">
+			<div class="col-md-12">
+                <form action="/building_edit" method="post">
+				    <table class="table">
+					<thead>
+						<tr>
+							<th scope="col">Select</th>
+						    <th scope="col">Name</th>
+						    <th scope="col">Code</th>
+                            <th scope="col">Campus</th>
+						</tr>
+					</thead>
+					<tbody>
+						{% if buildings %}
+							{% for building in buildings %}
+								<tr>
+					  				<td scope="row">
+                                        <label class="checkbox">
+                                            <input type="checkbox" name="bu_id" value="{{ building["ID"] }}"/>
+                                    </label>
+                                    </td>
+					  				<td scope="row">{{ building["Name"] }}</td>
+					  				<td scope="row">{{ building["Code"] }}</td>
+                                    <td scope="row">{{ building["Campus"] }}</td>
+					  			</tr>
+					  		{% endfor %}
+					  	{% endif %}
+				  	</tbody>
+				</table>
+                    <button type="submit" class="btn btn-primary" value="update" name="button">Update</button>
+                    <button type="submit" class="btn btn-primary" value="delete" name="button">Delete</button>
+                </form>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
+{% endblock %}

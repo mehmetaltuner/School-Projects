@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Student Information System - {% block title %}{% endblock %}</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css" integrity="sha384-Zug+QiDoJOrZ5t4lssLdxGhVrurbmBWopoEl+M6BdEfwnCJZtKxi1KgxUyJq13dy" crossorigin="anonymous">
+    <link rel="stylesheet" href="/static/custom.css"/>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary" id="navbarColor02">
+        <a class="navbar-brand" href="">SIS++</a>
+        <div class="collapse navbar-collapse" id="navbarText">
+            <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link" href="../">Home <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('as_page') }}">Assistants</a>
+            </li>
+            <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('bu_page') }}">Buildings</a>
+            </li>
+            <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('cl_page') }}">Clubs</a>
+            </li>
+            <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('dep_page') }}">Departments</a>
+            </li>
+            <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('fac_page') }}">Faculties</a>
+            </li>
+            <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('lab_page') }}">Labs</a>
+            </li>
+            <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('paper_page') }}">Papers</a>
+            </li>
+            <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('instructors_page') }}">Instructors</a>
+            </li>
+            {% if session.get("person")["admin"] %}
+            <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('students_list') }}">Students</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('rooms_page') }}">Rooms</a>
+            </li>
+            <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('classrooms_page') }}">Classrooms</a>
+                </li>
+            <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('admin_page') }}">Super User Page</a>
+            </li>
+            {% else %}
+             <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('students_list') }}">Students</a>
+            </li>
+            {% endif %}
+            </ul>
+            {% if session.get("logged_in") %}
+            <span class="navbar-text">
+                <a class="nav-link" href="/logout"> Logout </a>
+            </span>
+            {% else %}
+            <span class="navbar-text">
+                <a class="nav-link" href="/login"> Login </a>
+            </span>
+            {% endif %}
+        </div>
+    </nav>
+    <div class="container">
+        
+            {% block content %}
+            {% endblock %}
+        
+    </div>
+
+<footer>
+    <small>&copy; 2019 - 2020 | Uğur Ali Kaplan, Berkay Olgun and Mehmet Altuner</small>
+</footer>
+
+</body>
+</html>

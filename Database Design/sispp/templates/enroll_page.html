@@ -1,0 +1,112 @@
+{% extends "layout.html" %}
+{% block title %}Enroll{% endblock %}
+{% block content %}
+
+	<div class="container">
+		<br/>
+		<div class="row">
+			<div class="col-sm-3">
+				<form method="post" action="">
+					<div class="form-group">
+						<a>Search using:</a>
+						<select class="form-control" name="type">
+							<option value="1">CRN</option>
+							<option value="2">Instructor</option>
+						</select>
+					</div>
+					<div class="form-group">
+						<a>Value: </a>
+						<input type="text" name="value" class="form-control">
+					</div>
+					<div class="">
+						<button type="submit" class="btn btn-primary">Submit</button>
+					</div>
+				</form>
+			</div>
+			<div class="col-sm-9">
+				{% if result %}
+					<table class="table">
+						<thead>
+							<tr>
+								<th scope="col">CRN</th>
+							    <th scope="col">CODE</th>
+							    <th scope="col">DATE</th>
+							    <th scope="col">LECTURER</th>
+							    <th scope="col">ENROLLED/CAPACITY</th>
+							    <th scope="col">ACTION</th>
+							</tr>
+						</thead>
+						<tbody>
+							{% for res in result %}
+								<tr>
+					  				<th scope="row">{{res[4]}}</th>
+					  				<th scope="row">{{res[8]}}</th>
+					  				<th scope="row">{{res[9]}}</th>
+					  				<th scope="row">{{res[18]}}</th>
+					  				<th scope="row" id="numbers-{{res[0]}}" enrolled="{{res[2]}}" cap="{{res[1]}}" >{{res[2]}} / {{res[1]}}</th>
+					  				<th scope="row"> 
+					  					<div id="enrollment-{{res[0]}}">
+					  					{% if res[0] in enrolled %}
+					  						<a class="btn btn-danger" href="#" onclick="leave('{{res[0]}}')" role="button" id="leave">Leave</a> 
+					  					{% else %}
+						  					
+					  						<a class="btn btn-primary" href="#" onclick="enroll('{{res[0]}}')" role="button" id="enroll">
+					  						Enroll
+					  						</a> 
+						  					
+					  					{% endif %}
+					  					</div>
+					  				</th>
+					  			</tr>
+					  		{% endfor %}
+					  	</tbody>
+					</table>
+				{% endif %}
+			</div>
+		</div>
+	</div>
+
+	<script>
+
+		function enroll(lesson_id){
+			console.log(lesson_id);
+			$.ajax(
+    			{
+    				url: "/enroll_action?lesson_id=" + lesson_id,
+    				success: function(result){
+						$("#enrollment-" + lesson_id).html('<a class="btn btn-danger" href="#" onclick=leave('+ lesson_id +') role="button" id="leave" value="' + lesson_id + '">Leave</a> ');
+    					console.log(result);
+    					var enrolled = $("#numbers-" + lesson_id).attr("enrolled");
+    					var cap = $("#numbers-" + lesson_id).attr("cap");
+    					$("#numbers-" + lesson_id).attr("enrolled", parseInt(enrolled)+1);
+    					$("#numbers-" + lesson_id).html(parseInt(enrolled)+1 + " / " + cap);
+  					},
+  					error: function(result){
+  						console.log("Error while enrolling");
+  					}
+  				}
+				);
+		}
+
+		function leave(lesson_id){
+			console.log(lesson_id);
+			$.ajax(
+    			{
+    				url: "/leave_action?lesson_id=" + lesson_id,
+    				success: function(result){
+						$("#enrollment-" + lesson_id).html('<a class="btn btn-primary" href="#" onclick=enroll('+ lesson_id +') role="button" id="enroll" value="' + lesson_id + '">Enroll</a> ');
+    					console.log(result);
+    					var enrolled = $("#numbers-" + lesson_id).attr("enrolled");
+    					var cap = $("#numbers-" + lesson_id).attr("cap");
+    					$("#numbers-" + lesson_id).attr("enrolled", parseInt(enrolled)-1);
+    					$("#numbers-" + lesson_id).html(parseInt(enrolled)-1 + " / " + cap);
+  					},
+  					error: function(result){
+  						console.log("Error while leaving lesson");
+  					}
+  				}
+				);
+		}
+	</script>
+
+{% endblock %}

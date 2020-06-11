@@ -1,0 +1,58 @@
+{% extends "layout.html" %}
+
+{% block content %}
+	<br/>
+		<div class="container">
+			<div class="row">
+				<h1>Students</h1>
+				<table class="table">
+					<thead>
+						<tr>
+							{% if person %}
+								{% if person.admin %}
+									<th scope="col">#</th>			
+								{% endif %}
+							{% endif %}
+							<th scope="col">ID</th>
+						    <th scope="col">Name</th>
+						    <th scope="col">Number</th>
+						</tr>
+					</thead>
+					<tbody>
+						<form action="/student_delete_update" method="post">
+							{% if students %}
+								{% for stu in students %}
+									<tr>
+										{% if person %}
+											{% if person.admin %}
+												<th scope="col">
+													<input name="selected" value="{{stu.ID}}" type="checkbox">
+												</th>			
+											{% endif %}
+										{% endif %}
+						  				<th scope="row">{{stu.ID}}</th>
+						  				<th scope="row">{{stu.Name}}</th>
+						  				<th scope="row">{{stu.Number}}</th>
+						  			</tr>
+						  		{% endfor %}
+						  	{% endif %}
+						  	<div class="row">
+					  
+				  	</tbody>
+				</table>
+				<div class="field is-grouped">
+		         	<div class="control">
+		            	<button class="btn btn-outline-warning" name="button" value="update">Update</button>
+		          	</div>
+		        </div>
+		        <div class="field is-grouped">
+		          	<div class="control">
+		            	<button class="btn btn-outline-danger" name="button" value="delete">Delete</button>
+		            	</form>
+		          	</div>
+		        </div>
+		      </div>
+			</div>
+		</div>
+
+{% endblock %}

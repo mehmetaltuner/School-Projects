@@ -1,0 +1,49 @@
+{% extends "layout.html" %}
+{% block title %}Edit Assistant - {{ assistant["Name"] }}{% endblock %}
+{% block content %}
+    <div class="col-sm">
+    <h1>Update Assistant - {{ assistant["Name"] }}</h1>
+    <form method="post" action="/as_edit" id="assistant_update">
+        <div class="form-group">
+            <input type="hidden" class="form-control" name="id" type="text" value="{{ assistant["ID"] }}">
+        </div>
+        <div class="form-group">
+            <label for="p_id">Name</label>
+            <select class="custom-select" name="p_id">
+                {% for person in people %}
+                    <option value="{{ person[0] }}" {% if person[0] == assistant["Person"] %} selected {% endif %}>{{ person[1] }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="lab_id">Lab</label>
+            <select class="custom-select" name="lab_id">
+                {% for lab in labs %}
+                    <option value="{{ lab[0] }}" {% if lab[0] == assistant["Lab"] %} selected {% endif %} >{{ lab[1] }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="deg">Degree</label>
+            <input class="form-control" name="deg" type="text" value="{{ assistant["Degree"] }}"/>
+        </div>
+        <div class="form-group">
+            <label for="dep_id">Department</label>
+            <select class="custom-select" name="dep_id">
+                {% for dep in deps %}
+                    <option value="{{ dep[0] }}" {% if dep[0] == assistant["Dep"] %} selected {% endif %}>{{ dep[1] }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="fac_id">Faculty</label>
+            <select class="custom-select" name="fac_id">
+                {% for fac in facs %}
+                    <option value="{{ fac["ID"] }}" {% if fac["ID"] == assistant["Fac"] %} selected {% endif %}>{{ fac["Name"] }}</option>
+                {% endfor %}
+            </select>
+        </div>
+    <button type="submit" class="btn btn-primary">Update</button>
+    </form><br/>
+</div>
+{% endblock %}

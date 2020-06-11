@@ -1,0 +1,41 @@
+{% extends "layout.html" %}
+{% block title %}Login{% endblock %}
+{% block content %}
+
+	<div class="container">
+		<div class="row">		
+			<div class="col-md-4">
+			</div>	
+			<div class="col-md-4">
+				<form method="post" action="/signup_action" id="student_create" enctype="multipart/form-data"> 
+			    	<!-- USER CREATION FORM -->
+			    	<div class="form-group">
+			    		<label for="name">Name</label>
+			    		<input class="form-control" name="name" type="text">
+			    	</div>
+			    	<div class="form-group">
+			    		<label for="mail">Mail</label>
+			    		<input class="form-control" name="mail" type="mail">
+			    	</div>
+			    	<div class="form-group">
+			    		<label for="password">Password</label>
+			    		<input class="form-control" name="password" type="password">
+			    	</div>
+			    	<div class="form-group">
+			    		<input type="radio" name="type" value="student"> Student <br>
+						<input type="radio" name="type" value="instructor"> Instructor<br>
+			    	</div>
+			    	<div class="form-group">
+			    		<label for="pic">Picture</label>
+			    		<input type="file" name="pic">
+			    	</div>
+			    	<div class="form-group">
+		    			<button type="submit" class="btn btn-primary">Sign up</button> <a href="/login"> Or login </a>
+		    		</div>
+			    	</div>
+				</form>
+			</div>
+		</div>
+	</div>
+
+{% endblock %}

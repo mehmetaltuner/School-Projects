@@ -1,0 +1,57 @@
+{% extends "layout.html" %}
+{% block title %}Edit Club - {{ club[0] }}{% endblock %}
+{% block content %}
+    <div class="col-sm">
+    <h1>Update Club - {{ club[1] }}</h1>
+    <form method="post" action="/cl_edit" id="club_update">
+        <div class="form-group">
+            <input type="hidden" class="form-control" name="id" type="text" value="{{ club[0] }}">
+        </div>
+        <div class="form-group">
+            <label for="name">Name</label>
+            <input class="form-control" name="name" type="text" value="{{ club[1] }}"/>
+        </div>
+        <div class="form-group">
+            <label for="fac_id">Faculty</label>
+            <select class="custom-select" name="fac_id">
+                {% for faculty in faculties %}
+                    <option value="{{ faculty[0] }}" {% if faculty[0] == club[2] %} selected {% endif %}>{{ faculty[1] }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="adv_id">Advisor</label>
+            <select class="custom-select" name="adv_id">
+                {% for person in people %}
+                    <option value="{{ person[0] }}" {% if person[0] == club[3] %} selected {% endif %}>{{ person[1] }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="ch_id">Chairman</label>
+            <select class="custom-select" name="ch_id">
+                {% for person in people %}
+                    <option value="{{ person[0] }}" {% if person[0] == club[4] %} selected {% endif %}>{{ person[1] }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="v1_id">Vice Chairman 1</label>
+            <select class="custom-select" name="v1_id">
+                {% for person in people %}
+                    <option value="{{ person[0] }}" {% if person[0] == club[5] %} selected {% endif %}>{{ person[1] }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="v2_id">Vice Chairman 2</label>
+            <select class="custom-select" name="v2_id">
+                {% for person in people %}
+                    <option value="{{ person[0] }}" {% if person[0] == club[6] %} selected {% endif %}>{{ person[1] }}</option>
+                {% endfor %}
+            </select>
+        </div>
+    <button type="submit" class="btn btn-primary">Update</button>
+    </form><br/>
+</div>
+{% endblock %}

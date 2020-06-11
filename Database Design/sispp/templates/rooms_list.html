@@ -1,0 +1,51 @@
+{% extends "layout.html" %}
+{% block title %}Rooms{% endblock %}
+{% block content %}
+    <h1>Rooms</h1>
+
+    {% if rooms %}
+    <form action="/room_edit" method="post" name="rooms_list">
+      <table class="table">
+        <tr>
+            <th>#</th>
+            <!--<th>ID</th>-->
+            <th>Name</th>
+            <th>Building</th>
+        </tr>
+        {% for room in rooms %}
+        <tr>
+            <td>
+            {% if session.get("person")["admin"] %}
+            
+              <label class="checkbox">
+                  <input type="checkbox" name="room_keys" value="{{ room['ID'] }}"/>
+              </label>
+            {% else %}
+              #
+            {% endif %}
+            </td>
+          {% for key, value in room.items() %}
+            {% if key != "ID"%}
+              <td> {{ value }} <br/></td>
+            {% endif %}
+          {% endfor %}
+        </tr>
+        {% endfor %}
+      </table>
+      {% if session.get("person")["admin"] %}
+      <div class="row">
+        <div class="field is-grouped">
+          <div class="control">
+            <button class="btn btn-outline-warning" name="button" value="update">Update</button>
+          </div>
+        </div>
+        <div class="field is-grouped">
+          <div class="control">
+            <button class="btn btn-outline-danger" name="button" value="delete">Delete</button>
+          </div>
+        </div>
+      </div>
+      {% endif %}
+    </form>
+    {% endif %}
+{% endblock %}

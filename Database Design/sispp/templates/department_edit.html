@@ -1,0 +1,41 @@
+{% extends "layout.html" %}
+{% block title %}Edit Department - {{ dep[0] }}{% endblock %}
+{% block content %}
+    <div class="col-sm">
+    <h1>Update Department - {{ dep[1] }}</h1>
+    <form method="post" action="/dep_edit" id="department_update">
+        <div class="form-group">
+            <input type="hidden" class="form-control" name="id" type="text" value="{{ dep[0] }}">
+        </div>
+        <div class="form-group">
+            <label for="name">Name</label>
+            <input class="form-control" name="name" type="text" value="{{ dep[1] }}"/>
+        </div>
+        <div class="form-group">
+            <label for="fac_id">Faculty</label>
+            <select class="custom-select" name="fac_id">
+                {% for faculty in faculties %}
+                    <option value="{{ faculty[0] }}" {% if faculty[0] == dep[2] %} selected {% endif %}>{{ faculty[1] }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="bu_id">Building</label>
+            <select class="custom-select" name="bu_id">
+                {% for building in buildings %}
+                    <option value="{{ building["ID"] }}" {% if building["ID"] == dep[3] %} selected {% endif %}>{{ building["Name"] }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="ch_id">Chair</label>
+            <select class="custom-select" name="ch_id">
+                {% for person in people %}
+                    <option value="{{ person[0] }}" {% if person[0] == dep[4] %} selected {% endif %}>{{ person[1] }}</option>
+                {% endfor %}
+            </select>
+        </div>
+    <button type="submit" class="btn btn-primary">Update</button>
+    </form><br/>
+</div>
+{% endblock %}

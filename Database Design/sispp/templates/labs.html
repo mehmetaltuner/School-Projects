@@ -1,0 +1,48 @@
+{% extends "layout.html" %}
+{% block title %}Labs{% endblock %}
+{% block content %}
+    <br/>
+	<div class="container">
+        <h1 class="title">Labs</h1>
+		<div class="row">
+			<div class="col-md-12">
+                <form action="/lab_edit" method="post">
+				    <table class="table">
+					<thead>
+						<tr>
+							<th scope="col">Select</th>
+						    <th scope="col">Name</th>
+						    <th scope="col">Department</th>
+                            <th scope="col">Faculty</th>
+                            <th scope="col">Building</th>
+                            <th scope="col">Room</th>
+                            <th scope="col">Principal Investigator</th>
+						</tr>
+					</thead>
+					<tbody>
+						{% if labs %}
+							{% for lab in labs %}
+								<tr>
+					  				<td scope="row">
+                                        <label class="checkbox">
+                                            <input type="checkbox" name="lab_id" value="{{ lab["ID"] }}"/>
+                                        </label>
+                                    </td>
+					  				<td scope="row">{{ lab["Name"] }}</td>
+                                    <td scope="row">{{ lab["Department"] }}</td>
+                                    <td scope="row">{{ lab["Faculty"] }}</td>
+                                    <td scope="row">{{ lab["Building"] }}</td>
+                                    <td scope="row">{{ lab["Room"] }}</td>
+                                    <td scope="row">{{ lab["Investigator"] }}</td>
+					  			</tr>
+					  		{% endfor %}
+					  	{% endif %}
+				  	</tbody>
+				</table>
+                    <button type="submit" class="btn btn-primary" value="update" name="button">Update</button>
+                    <button type="submit" class="btn btn-primary" value="delete" name="button">Delete</button>
+                </form>
+			</div>
+		</div>
+	</div>
+{% endblock %}
