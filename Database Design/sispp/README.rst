@@ -1,7 +1,7 @@
 **Contributors:**
-Berkay Olgun
-Uğur Ali Kaplan
-Mehmet Altuner
+- Berkay Olgun
+- Uğur Ali Kaplan
+- Mehmet Altuner
 
 This repository contains a template project for the Database Systems course
 of the Istanbul Technical University Computer Engineering Department.
